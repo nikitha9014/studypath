@@ -6,7 +6,6 @@ build:
       - cd frontend && npm install && npm run build
       - cd backend && npm install
 run:
-  runtime-version: 22
   # Node.js 22 revised build does not copy node_modules into the run image
   pre-run:
     - cd backend && npm install --omit=dev
