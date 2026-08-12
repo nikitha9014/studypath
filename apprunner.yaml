@@ -1,0 +1,21 @@
+version: 1.0
+runtime: nodejs22
+build:
+  commands:
+    build:
+      - cd frontend && npm install && npm run build
+      - cd backend && npm install
+run:
+  runtime-version: 22
+  # Node.js 22 revised build does not copy node_modules into the run image
+  pre-run:
+    - cd backend && npm install --omit=dev
+  command: node backend/server.js
+  network:
+    port: 4000
+    env: PORT
+  env:
+    - name: PORT
+      value: "4000"
+    - name: NODE_ENV
+      value: "production"
