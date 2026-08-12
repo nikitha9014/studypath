@@ -20,9 +20,16 @@ const frontendDist = path.join(__dirname, "..", "frontend", "dist");
 // (clickjacking, MIME sniffing, etc.) with minimal config needed.
 app.use(helmet());
 
-// CORS is restricted to the known frontend origin rather than left wide
-// open, since this API handles authenticated student data.
-app.use(cors({ origin: FRONTEND_URL }));
+// Dev: restrict CORS to the Vite origin. Production (single App Runner
+// service): reflect the request origin so the same-host SPA works.
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? true
+        : FRONTEND_URL,
+  })
+);
 
 app.use(express.json({ limit: "1mb" }));
 
