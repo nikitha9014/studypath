@@ -34,3 +34,7 @@ Thumbs.db
 # Runtime data
 backend/db/studypath.json
 *.local
+
+apprunner-source.json
+apprunner-instance.json
+apprunner-health.json
